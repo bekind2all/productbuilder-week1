@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가위바위보 AI 인식기</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .app {
+            text-align: center;
+            background-color: #1e1e1e;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .icons {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        #webcam-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        #webcam-container canvas {
+            border-radius: 10px;
+            border: 3px solid #333;
+        }
+
+        #label-container {
+            margin: 20px 0;
+        }
+
+        #label-container div {
+            background-color: #333;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .result-display {
+            font-size: 4rem;
+            margin: 20px 0;
+            min-height: 80px;
+        }
+
+        #start-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        #start-btn:hover {
+            background-color: #0056b3;
+        }
+
+        #start-btn:active {
+            transform: scale(0.98);
+        }
+
+        #start-btn:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+
+        .instructions {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <h1>가위바위보 AI 인식기</h1>
+        <p class="subtitle">Teachable Machine으로 학습된 모델</p>
+        <div class="icons">✊ ✋ ✌️</div>
+
+        <button type="button" id="start-btn" onclick="init()">카메라 시작</button>
+
+        <div id="webcam-container"></div>
+
+        <div class="result-display" id="result-display"></div>
+
+        <div id="label-container"></div>
+
+        <div class="instructions">
+            <p>카메라 앞에서 가위, 바위, 보 중 하나를 보여주세요.</p>
+            <p>AI가 실시간으로 인식합니다!</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script type="text/javascript">
+        const URL = "https://teachablemachine.withgoogle.com/models/iQUcjE5mH/";
+
+        let model, webcam, labelContainer, maxPredictions;
+        const resultDisplay = document.getElementById('result-display');
+        const startBtn = document.getElementById('start-btn');
+
+        const emojiMap = {
+            '가위': '✌️',
+            '바위': '✊',
+            '보': '✋',
+            'scissors': '✌️',
+            'rock': '✊',
+            'paper': '✋'
+        };
+
+        async function init() {
+            startBtn.disabled = true;
+            startBtn.textContent = '로딩 중...';
+
+            try {
+                const modelURL = URL + "model.json";
+                const metadataURL = URL + "metadata.json";
+
+                model = await tmImage.load(modelURL, metadataURL);
+                maxPredictions = model.getTotalClasses();
+
+                const flip = true;
+                webcam = new tmImage.Webcam(300, 300, flip);
+                await webcam.setup();
+                await webcam.play();
+                window.requestAnimationFrame(loop);
+
+                document.getElementById("webcam-container").appendChild(webcam.canvas);
+                labelContainer = document.getElementById("label-container");
+                for (let i = 0; i < maxPredictions; i++) {
+                    labelContainer.appendChild(document.createElement("div"));
+                }
+
+                startBtn.style.display = 'none';
+            } catch (error) {
+                startBtn.disabled = false;
+                startBtn.textContent = '다시 시도';
+                alert('카메라 접근 권한이 필요합니다.');
+            }
+        }
+
+        async function loop() {
+            webcam.update();
+            await predict();
+            window.requestAnimationFrame(loop);
+        }
+
+        async function predict() {
+            const prediction = await model.predict(webcam.canvas);
+
+            let highestProb = 0;
+            let highestClass = '';
+
+            for (let i = 0; i < maxPredictions; i++) {
+                const className = prediction[i].className;
+                const probability = prediction[i].probability;
+                const percent = (probability * 100).toFixed(0);
+
+                labelContainer.childNodes[i].innerHTML = `${className}: ${percent}%`;
+
+                if (probability > highestProb) {
+                    highestProb = probability;
+                    highestClass = className;
+                }
+
+                // 확률에 따라 배경색 변경
+                if (probability > 0.8) {
+                    labelContainer.childNodes[i].style.backgroundColor = '#28a745';
+                } else if (probability > 0.5) {
+                    labelContainer.childNodes[i].style.backgroundColor = '#ffc107';
+                    labelContainer.childNodes[i].style.color = '#000';
+                } else {
+                    labelContainer.childNodes[i].style.backgroundColor = '#333';
+                    labelContainer.childNodes[i].style.color = '#fff';
+                }
+            }
+
+            // 가장 높은 확률의 이모지 표시
+            if (highestProb > 0.7) {
+                const emoji = emojiMap[highestClass.toLowerCase()] || emojiMap[highestClass] || '🤔';
+                resultDisplay.textContent = emoji;
+            } else {
+                resultDisplay.textContent = '🤔';
+            }
+        }
+    </script>
+</body>
+</html>
