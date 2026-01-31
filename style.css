@@ -61,3 +61,39 @@ h1 {
 #generate-btn:active {
     transform: scale(0.98);
 }
+
+.lotto-image {
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.winner-section {
+    margin-top: 30px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.winner-section.hidden {
+    display: none;
+}
+
+.winner-image {
+    width: 250px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.winner-text {
+    font-size: 1.5rem;
+    color: #ffd700;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

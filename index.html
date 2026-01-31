@@ -8,11 +8,16 @@
 </head>
 <body>
     <div class="app">
+        <img src="https://source.unsplash.com/RSsqjpezn6o/400x300" alt="로또 볼" class="lotto-image">
         <h1>다크모드 로또 번호 생성기</h1>
         <div class="lotto-numbers">
             <!-- 자바스크립트로 여기에 번호가 채워집니다. -->
         </div>
         <button id="generate-btn">새 번호 받기</button>
+        <div id="winner-section" class="winner-section hidden">
+            <img src="https://source.unsplash.com/featured/?celebration,confetti/400x250" alt="당첨 축하" class="winner-image">
+            <p class="winner-text">당첨을 축하합니다!</p>
+        </div>
     </div>
     <script src="main.js"></script>
 </body>
