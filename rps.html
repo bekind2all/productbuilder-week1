@@ -43,15 +43,44 @@
             margin-bottom: 20px;
         }
 
-        #webcam-container {
-            display: flex;
-            justify-content: center;
+        .upload-area {
+            border: 3px dashed #444;
+            border-radius: 15px;
+            padding: 40px 20px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: #007bff;
+            background-color: #252525;
+        }
+
+        .upload-area.dragover {
+            border-color: #28a745;
+            background-color: #1a3d1a;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        #preview-container {
             margin: 20px 0;
         }
 
-        #webcam-container canvas {
+        #preview-image {
+            max-width: 300px;
+            max-height: 300px;
             border-radius: 10px;
             border: 3px solid #333;
+            display: none;
         }
 
         #label-container {
@@ -68,33 +97,15 @@
         }
 
         .result-display {
-            font-size: 4rem;
+            font-size: 5rem;
             margin: 20px 0;
-            min-height: 80px;
+            min-height: 100px;
         }
 
-        #start-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.1s;
-        }
-
-        #start-btn:hover {
-            background-color: #0056b3;
-        }
-
-        #start-btn:active {
-            transform: scale(0.98);
-        }
-
-        #start-btn:disabled {
-            background-color: #555;
-            cursor: not-allowed;
+        .result-text {
+            font-size: 1.5rem;
+            color: #ffd700;
+            font-weight: bold;
         }
 
         .instructions {
@@ -105,6 +116,13 @@
             font-size: 0.9rem;
             color: #aaa;
         }
+
+        .loading {
+            display: none;
+            color: #007bff;
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -113,17 +131,26 @@
         <p class="subtitle">Teachable Machine으로 학습된 모델</p>
         <div class="icons">✊ ✋ ✌️</div>
 
-        <button type="button" id="start-btn" onclick="init()">카메라 시작</button>
+        <div class="upload-area" id="upload-area">
+            <div class="upload-icon">📁</div>
+            <p>이미지를 여기에 드래그하거나<br>클릭하여 업로드</p>
+        </div>
+        <input type="file" id="file-input" accept="image/*">
 
-        <div id="webcam-container"></div>
+        <div class="loading" id="loading">분석 중...</div>
+
+        <div id="preview-container">
+            <img id="preview-image" alt="업로드된 이미지">
+        </div>
 
         <div class="result-display" id="result-display"></div>
+        <div class="result-text" id="result-text"></div>
 
         <div id="label-container"></div>
 
         <div class="instructions">
-            <p>카메라 앞에서 가위, 바위, 보 중 하나를 보여주세요.</p>
-            <p>AI가 실시간으로 인식합니다!</p>
+            <p>가위, 바위, 보 이미지를 업로드하세요.</p>
+            <p>AI가 인식하여 결과를 알려드립니다!</p>
         </div>
     </div>
 
@@ -132,9 +159,14 @@
     <script type="text/javascript">
         const URL = "https://teachablemachine.withgoogle.com/models/iQUcjE5mH/";
 
-        let model, webcam, labelContainer, maxPredictions;
+        let model;
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const previewImage = document.getElementById('preview-image');
         const resultDisplay = document.getElementById('result-display');
-        const startBtn = document.getElementById('start-btn');
+        const resultText = document.getElementById('result-text');
+        const labelContainer = document.getElementById('label-container');
+        const loading = document.getElementById('loading');
 
         const emojiMap = {
             '가위': '✌️',
@@ -145,79 +177,120 @@
             'paper': '✋'
         };
 
-        async function init() {
-            startBtn.disabled = true;
-            startBtn.textContent = '로딩 중...';
+        const nameMap = {
+            '가위': '가위',
+            '바위': '바위',
+            '보': '보',
+            'scissors': '가위',
+            'rock': '바위',
+            'paper': '보'
+        };
 
-            try {
-                const modelURL = URL + "model.json";
-                const metadataURL = URL + "metadata.json";
-
-                model = await tmImage.load(modelURL, metadataURL);
-                maxPredictions = model.getTotalClasses();
-
-                const flip = true;
-                webcam = new tmImage.Webcam(300, 300, flip);
-                await webcam.setup();
-                await webcam.play();
-                window.requestAnimationFrame(loop);
-
-                document.getElementById("webcam-container").appendChild(webcam.canvas);
-                labelContainer = document.getElementById("label-container");
-                for (let i = 0; i < maxPredictions; i++) {
-                    labelContainer.appendChild(document.createElement("div"));
-                }
-
-                startBtn.style.display = 'none';
-            } catch (error) {
-                startBtn.disabled = false;
-                startBtn.textContent = '다시 시도';
-                alert('카메라 접근 권한이 필요합니다.');
-            }
+        // 모델 로드
+        async function loadModel() {
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+            model = await tmImage.load(modelURL, metadataURL);
         }
 
-        async function loop() {
-            webcam.update();
-            await predict();
-            window.requestAnimationFrame(loop);
+        loadModel();
+
+        // 드래그 앤 드롭
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleImage(file);
+            }
+        });
+
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                handleImage(file);
+            }
+        });
+
+        async function handleImage(file) {
+            loading.style.display = 'block';
+            resultDisplay.textContent = '';
+            resultText.textContent = '';
+            labelContainer.innerHTML = '';
+
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                previewImage.src = e.target.result;
+                previewImage.style.display = 'block';
+
+                previewImage.onload = async () => {
+                    await predict();
+                    loading.style.display = 'none';
+                };
+            };
+            reader.readAsDataURL(file);
         }
 
         async function predict() {
-            const prediction = await model.predict(webcam.canvas);
+            if (!model) {
+                await loadModel();
+            }
+
+            const prediction = await model.predict(previewImage);
+            const maxPredictions = prediction.length;
 
             let highestProb = 0;
             let highestClass = '';
+
+            labelContainer.innerHTML = '';
 
             for (let i = 0; i < maxPredictions; i++) {
                 const className = prediction[i].className;
                 const probability = prediction[i].probability;
                 const percent = (probability * 100).toFixed(0);
 
-                labelContainer.childNodes[i].innerHTML = `${className}: ${percent}%`;
+                const div = document.createElement('div');
+                div.innerHTML = `${className}: ${percent}%`;
 
                 if (probability > highestProb) {
                     highestProb = probability;
                     highestClass = className;
                 }
 
-                // 확률에 따라 배경색 변경
                 if (probability > 0.8) {
-                    labelContainer.childNodes[i].style.backgroundColor = '#28a745';
+                    div.style.backgroundColor = '#28a745';
                 } else if (probability > 0.5) {
-                    labelContainer.childNodes[i].style.backgroundColor = '#ffc107';
-                    labelContainer.childNodes[i].style.color = '#000';
+                    div.style.backgroundColor = '#ffc107';
+                    div.style.color = '#000';
                 } else {
-                    labelContainer.childNodes[i].style.backgroundColor = '#333';
-                    labelContainer.childNodes[i].style.color = '#fff';
+                    div.style.backgroundColor = '#333';
+                    div.style.color = '#fff';
                 }
+
+                labelContainer.appendChild(div);
             }
 
-            // 가장 높은 확률의 이모지 표시
-            if (highestProb > 0.7) {
+            if (highestProb > 0.5) {
                 const emoji = emojiMap[highestClass.toLowerCase()] || emojiMap[highestClass] || '🤔';
+                const name = nameMap[highestClass.toLowerCase()] || nameMap[highestClass] || highestClass;
                 resultDisplay.textContent = emoji;
+                resultText.textContent = `"${name}" 입니다! (${(highestProb * 100).toFixed(0)}%)`;
             } else {
                 resultDisplay.textContent = '🤔';
+                resultText.textContent = '잘 모르겠어요. 다른 이미지를 시도해보세요.';
             }
         }
     </script>
