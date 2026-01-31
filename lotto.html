@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-8028607975979277">
+    <meta name="description" content="무료 로또 번호 생성기 - 1부터 45까지 랜덤한 6개의 행운의 번호를 생성합니다. 매주 새로운 번호로 행운을 시험해보세요!">
+    <meta name="keywords" content="로또 번호 생성기, 랜덤 번호, 로또 추첨, 행운의 번호, 무료 로또">
+    <title>로또 번호 생성기 - ToolBox</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8028607975979277" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #007bff;
+        }
+        .tool-container {
+            background-color: #1e1e1e;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .tool-container h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #888;
+            margin-bottom: 30px;
+        }
+        .lotto-numbers {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+        }
+        #generate-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        #generate-btn:hover {
+            background-color: #218838;
+        }
+        #generate-btn:active {
+            transform: scale(0.98);
+        }
+        .content-section {
+            background-color: #1e1e1e;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        .content-section p, .content-section li {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        .content-section ul {
+            padding-left: 20px;
+        }
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #333;
+            margin-top: 40px;
+        }
+        footer p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .footer-links a:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo">ToolBox</a>
+            <div class="nav-links">
+                <a href="index.html">홈</a>
+                <a href="lotto.html" class="active">로또</a>
+                <a href="rps.html">가위바위보</a>
+                <a href="about.html">소개</a>
+            </div>
+        </nav>
+
+        <div class="tool-container">
+            <h1>🎱 로또 번호 생성기</h1>
+            <p class="subtitle">행운의 번호를 뽑아보세요!</p>
+            <div class="lotto-numbers" id="lotto-numbers"></div>
+            <button id="generate-btn">새 번호 뽑기</button>
+        </div>
+
+        <section class="content-section">
+            <h2>로또 번호 생성기 사용법</h2>
+            <p>"새 번호 뽑기" 버튼을 클릭하면 1부터 45까지의 숫자 중 무작위로 6개의 번호가 선택됩니다. 번호는 자동으로 오름차순으로 정렬되어 표시됩니다.</p>
+            <p>이 생성기는 JavaScript의 Math.random() 함수를 사용하여 완전히 무작위한 번호를 생성합니다. 매번 새로운 조합이 만들어지므로 원하는 만큼 번호를 뽑아보세요!</p>
+        </section>
+
+        <section class="content-section">
+            <h2>로또 당첨 확률</h2>
+            <p>한국 로또 6/45의 1등 당첨 확률은 약 1/8,145,060입니다. 이는 45개의 숫자 중 6개를 맞춰야 하기 때문입니다.</p>
+            <ul>
+                <li><strong>1등:</strong> 6개 번호 일치 - 약 1/8,145,060</li>
+                <li><strong>2등:</strong> 5개 + 보너스 번호 - 약 1/1,357,510</li>
+                <li><strong>3등:</strong> 5개 번호 일치 - 약 1/35,724</li>
+                <li><strong>4등:</strong> 4개 번호 일치 - 약 1/733</li>
+                <li><strong>5등:</strong> 3개 번호 일치 - 약 1/45</li>
+            </ul>
+        </section>
+
+        <section class="content-section">
+            <h2>자주 묻는 질문</h2>
+            <p><strong>Q: 생성된 번호로 당첨될 확률이 높아지나요?</strong><br>A: 아니요, 모든 번호 조합은 동일한 확률을 가집니다. 이 생성기는 단순히 무작위 번호를 제공할 뿐입니다.</p>
+            <p><strong>Q: 이전에 생성된 번호를 다시 볼 수 있나요?</strong><br>A: 현재는 이전 기록을 저장하지 않습니다. 필요한 경우 번호를 따로 메모해두세요.</p>
+            <p><strong>Q: 번호 생성에 비용이 드나요?</strong><br>A: 완전히 무료입니다! 원하는 만큼 사용하세요.</p>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 ToolBox. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">소개</a>
+                <a href="privacy.html">개인정보처리방침</a>
+                <a href="terms.html">이용약관</a>
+                <a href="contact.html">문의하기</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const lottoNumbersContainer = document.getElementById('lotto-numbers');
+        const generateBtn = document.getElementById('generate-btn');
+
+        function generateNumbers() {
+            lottoNumbersContainer.innerHTML = '';
+
+            const numbers = new Set();
+            while (numbers.size < 6) {
+                const randomNumber = Math.floor(Math.random() * 45) + 1;
+                numbers.add(randomNumber);
+            }
+
+            const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
+
+            sortedNumbers.forEach(number => {
+                const numberElement = document.createElement('div');
+                numberElement.classList.add('number');
+                numberElement.textContent = number;
+                lottoNumbersContainer.appendChild(numberElement);
+            });
+        }
+
+        generateBtn.addEventListener('click', generateNumbers);
+        generateNumbers();
+    </script>
+</body>
+</html>

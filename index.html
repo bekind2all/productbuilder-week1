@@ -4,34 +4,261 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-adsense-account" content="ca-pub-8028607975979277">
-    <title>다크모드 로또 번호 생성기</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="무료 온라인 도구 모음 - 로또 번호 생성기, AI 가위바위보 인식기. 재미있고 유용한 웹 도구를 무료로 이용하세요.">
+    <meta name="keywords" content="로또 번호 생성기, 가위바위보 AI, 무료 온라인 도구, 랜덤 번호">
+    <title>ToolBox - 무료 온라인 도구 모음</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8028607975979277" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .hero p {
+            color: #aaa;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .tool-card {
+            background-color: #1e1e1e;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .tool-card h3 {
+            margin-bottom: 10px;
+        }
+        .tool-card p {
+            color: #888;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .tool-btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .tool-btn:hover {
+            background-color: #0056b3;
+        }
+        .features {
+            background-color: #1e1e1e;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .features h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+        }
+        .feature-item {
+            text-align: center;
+        }
+        .feature-item .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .feature-item h4 {
+            margin-bottom: 8px;
+        }
+        .feature-item p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        .content-section {
+            background-color: #1e1e1e;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .content-section h2 {
+            margin-bottom: 20px;
+        }
+        .content-section p {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #007bff;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #333;
+            margin-top: 40px;
+        }
+        footer p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .footer-links a:hover {
+            color: #007bff;
+        }
+        .lang-switch {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .lang-switch:hover {
+            color: #007bff;
+        }
+    </style>
 </head>
 <body>
-    <div class="app">
-        <img src="https://source.unsplash.com/RSsqjpezn6o/400x300" alt="로또 볼" class="lotto-image">
-        <h1>다크모드 로또 번호 생성기</h1>
-        <div class="lotto-numbers">
-            <!-- 자바스크립트로 여기에 번호가 채워집니다. -->
-        </div>
-        <button id="generate-btn">새 번호 받기</button>
-        <div id="winner-section" class="winner-section hidden">
-            <img src="https://source.unsplash.com/featured/?celebration,confetti/400x250" alt="당첨 축하" class="winner-image">
-            <p class="winner-text">당첨을 축하합니다!</p>
-        </div>
-    </div>
+    <div class="container">
+        <nav>
+            <div class="logo">ToolBox</div>
+            <div class="nav-links">
+                <a href="index.html">홈</a>
+                <a href="lotto.html">로또</a>
+                <a href="rps.html">가위바위보</a>
+                <a href="about.html">소개</a>
+                <a href="en/index.html" class="lang-switch">English</a>
+            </div>
+        </nav>
 
-    <div class="contact-form">
-        <h2>제휴문의</h2>
-        <form action="https://formspree.io/f/xvzrnzga" method="POST">
-            <input type="text" name="name" placeholder="이름" required>
-            <input type="email" name="email" placeholder="이메일" required>
-            <textarea name="message" placeholder="문의 내용" rows="4" required></textarea>
-            <button type="submit">문의하기</button>
-        </form>
-    </div>
+        <section class="hero">
+            <h1>무료 온라인 도구 모음</h1>
+            <p>ToolBox는 일상에서 유용하게 사용할 수 있는 다양한 무료 온라인 도구를 제공합니다. 로또 번호 생성부터 AI 이미지 인식까지, 재미있고 편리한 도구들을 경험해보세요.</p>
+        </section>
 
-    <script src="main.js"></script>
+        <section class="tools-grid">
+            <div class="tool-card">
+                <div class="tool-icon">🎱</div>
+                <h3>로또 번호 생성기</h3>
+                <p>행운의 로또 번호를 무작위로 생성합니다. 1부터 45까지의 숫자 중 6개를 랜덤하게 선택하여 보여드립니다. 매주 새로운 행운을 시험해보세요!</p>
+                <a href="lotto.html" class="tool-btn">사용하기</a>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">✊✋✌️</div>
+                <h3>AI 가위바위보 인식기</h3>
+                <p>Teachable Machine으로 학습된 AI가 여러분의 가위, 바위, 보 이미지를 인식합니다. 사진을 업로드하면 AI가 실시간으로 분석해드립니다.</p>
+                <a href="rps.html" class="tool-btn">사용하기</a>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2>왜 ToolBox인가요?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="icon">💯</div>
+                    <h4>100% 무료</h4>
+                    <p>모든 도구를 무료로 제한 없이 사용할 수 있습니다.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">🔒</div>
+                    <h4>개인정보 보호</h4>
+                    <p>업로드한 이미지는 서버에 저장되지 않습니다.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">⚡</div>
+                    <h4>빠른 속도</h4>
+                    <p>최적화된 코드로 빠르게 결과를 확인하세요.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">📱</div>
+                    <h4>모바일 지원</h4>
+                    <p>PC와 모바일 어디서나 편리하게 이용 가능합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>ToolBox 소개</h2>
+            <p>ToolBox는 누구나 쉽게 사용할 수 있는 무료 온라인 도구 플랫폼입니다. 복잡한 설치 과정 없이 웹 브라우저에서 바로 다양한 도구들을 이용할 수 있습니다.</p>
+            <p>저희는 사용자 경험을 최우선으로 생각합니다. 모든 도구는 직관적인 인터페이스로 설계되어 누구나 쉽게 사용할 수 있으며, 다크 모드 디자인으로 눈의 피로를 줄여줍니다.</p>
+            <p>앞으로도 더 많은 유용한 도구들을 추가할 예정입니다. 제안하고 싶은 도구가 있다면 언제든 연락해주세요!</p>
+        </section>
+
+        <section class="content-section">
+            <h2>자주 묻는 질문</h2>
+            <p><strong>Q: 도구 사용에 비용이 드나요?</strong><br>A: 아니요, 모든 도구는 완전히 무료입니다. 회원가입도 필요 없습니다.</p>
+            <p><strong>Q: 업로드한 이미지는 어떻게 처리되나요?</strong><br>A: 업로드한 이미지는 브라우저 내에서만 처리되며, 서버에 저장되거나 전송되지 않습니다.</p>
+            <p><strong>Q: 모바일에서도 사용할 수 있나요?</strong><br>A: 네, 모든 도구는 모바일 브라우저에서도 완벽하게 작동합니다.</p>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 ToolBox. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">소개</a>
+                <a href="privacy.html">개인정보처리방침</a>
+                <a href="terms.html">이용약관</a>
+                <a href="contact.html">문의하기</a>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>

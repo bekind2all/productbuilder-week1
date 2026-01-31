@@ -4,47 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-adsense-account" content="ca-pub-8028607975979277">
-    <title>가위바위보 AI 인식기</title>
+    <meta name="description" content="AI 가위바위보 인식기 - Teachable Machine으로 학습된 AI가 이미지에서 가위, 바위, 보를 인식합니다. 사진을 업로드하고 AI의 판단을 확인하세요!">
+    <meta name="keywords" content="가위바위보, AI 인식, 머신러닝, Teachable Machine, 이미지 인식">
+    <title>AI 가위바위보 인식기 - ToolBox</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8028607975979277" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        nav {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
         }
-
-        .app {
-            text-align: center;
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #007bff;
+        }
+        .tool-container {
             background-color: #1e1e1e;
-            padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            max-width: 500px;
-            width: 100%;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 40px;
         }
-
-        h1 {
+        .tool-container h1 {
             font-size: 2rem;
             margin-bottom: 10px;
         }
-
         .subtitle {
             color: #888;
-            margin-bottom: 30px;
-        }
-
-        .icons {
-            font-size: 3rem;
             margin-bottom: 20px;
         }
-
+        .icons {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+        }
         .upload-area {
             border: 3px dashed #444;
             border-radius: 15px;
@@ -53,30 +68,24 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-
         .upload-area:hover {
             border-color: #007bff;
             background-color: #252525;
         }
-
         .upload-area.dragover {
             border-color: #28a745;
             background-color: #1a3d1a;
         }
-
         .upload-icon {
             font-size: 3rem;
             margin-bottom: 10px;
         }
-
         #file-input {
             display: none;
         }
-
         #preview-container {
             margin: 20px 0;
         }
-
         #preview-image {
             max-width: 300px;
             max-height: 300px;
@@ -84,11 +93,9 @@
             border: 3px solid #333;
             display: none;
         }
-
         #label-container {
             margin: 20px 0;
         }
-
         #label-container div {
             background-color: #333;
             padding: 12px 20px;
@@ -97,63 +104,145 @@
             font-size: 1.1rem;
             transition: all 0.3s;
         }
-
         .result-display {
             font-size: 5rem;
             margin: 20px 0;
-            min-height: 100px;
+            min-height: 80px;
         }
-
         .result-text {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: #ffd700;
             font-weight: bold;
+            margin-bottom: 20px;
         }
-
-        .instructions {
-            background-color: #2a2a2a;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #aaa;
-        }
-
         .loading {
             display: none;
             color: #007bff;
             font-size: 1.2rem;
             margin: 20px 0;
         }
+        .content-section {
+            background-color: #1e1e1e;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        .content-section p, .content-section li {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        .content-section ul, .content-section ol {
+            padding-left: 20px;
+        }
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #333;
+            margin-top: 40px;
+        }
+        footer p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .footer-links a:hover {
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
-    <div class="app">
-        <h1>가위바위보 AI 인식기</h1>
-        <p class="subtitle">Teachable Machine으로 학습된 모델</p>
-        <div class="icons">✊ ✋ ✌️</div>
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo">ToolBox</a>
+            <div class="nav-links">
+                <a href="index.html">홈</a>
+                <a href="lotto.html">로또</a>
+                <a href="rps.html" class="active">가위바위보</a>
+                <a href="about.html">소개</a>
+            </div>
+        </nav>
 
-        <div class="upload-area" id="upload-area">
-            <div class="upload-icon">📁</div>
-            <p>이미지를 여기에 드래그하거나<br>클릭하여 업로드</p>
+        <div class="tool-container">
+            <h1>AI 가위바위보 인식기</h1>
+            <p class="subtitle">Teachable Machine으로 학습된 AI</p>
+            <div class="icons">✊ ✋ ✌️</div>
+
+            <div class="upload-area" id="upload-area">
+                <div class="upload-icon">📁</div>
+                <p>이미지를 여기에 드래그하거나<br>클릭하여 업로드</p>
+            </div>
+            <input type="file" id="file-input" accept="image/*">
+
+            <div class="loading" id="loading">분석 중...</div>
+
+            <div id="preview-container">
+                <img id="preview-image" alt="업로드된 이미지">
+            </div>
+
+            <div class="result-display" id="result-display"></div>
+            <div class="result-text" id="result-text"></div>
+
+            <div id="label-container"></div>
         </div>
-        <input type="file" id="file-input" accept="image/*">
 
-        <div class="loading" id="loading">분석 중...</div>
+        <section class="content-section">
+            <h2>AI 가위바위보 인식기 사용법</h2>
+            <ol>
+                <li>위의 업로드 영역을 클릭하거나 이미지를 드래그하여 업로드합니다.</li>
+                <li>AI가 자동으로 이미지를 분석합니다.</li>
+                <li>가위, 바위, 보 각각에 대한 확률이 표시됩니다.</li>
+                <li>가장 높은 확률의 결과가 이모지와 함께 표시됩니다.</li>
+            </ol>
+            <p>최상의 인식률을 위해 손이 잘 보이는 밝은 배경의 이미지를 사용해주세요.</p>
+        </section>
 
-        <div id="preview-container">
-            <img id="preview-image" alt="업로드된 이미지">
-        </div>
+        <section class="content-section">
+            <h2>기술 정보</h2>
+            <p>이 AI 모델은 Google의 <strong>Teachable Machine</strong>을 사용하여 학습되었습니다. Teachable Machine은 누구나 쉽게 머신러닝 모델을 만들 수 있는 도구입니다.</p>
+            <p>모델은 TensorFlow.js를 통해 웹 브라우저에서 직접 실행되므로, 이미지가 서버로 전송되지 않습니다. 모든 처리는 사용자의 기기에서 이루어져 개인정보가 안전하게 보호됩니다.</p>
+        </section>
 
-        <div class="result-display" id="result-display"></div>
-        <div class="result-text" id="result-text"></div>
+        <section class="content-section">
+            <h2>인식률 향상 팁</h2>
+            <ul>
+                <li><strong>밝은 조명:</strong> 충분한 조명 아래에서 촬영된 이미지가 더 잘 인식됩니다.</li>
+                <li><strong>단순한 배경:</strong> 복잡한 배경보다 단색 배경에서 손이 더 잘 구분됩니다.</li>
+                <li><strong>선명한 손 모양:</strong> 가위, 바위, 보의 손 모양이 명확하게 보이도록 해주세요.</li>
+                <li><strong>적절한 거리:</strong> 손이 이미지의 중앙에 적당한 크기로 위치하면 좋습니다.</li>
+            </ul>
+        </section>
 
-        <div id="label-container"></div>
+        <section class="content-section">
+            <h2>자주 묻는 질문</h2>
+            <p><strong>Q: 인식이 잘 안 되는 경우 어떻게 하나요?</strong><br>A: 위의 인식률 향상 팁을 참고하여 다른 이미지로 시도해보세요. AI 모델의 특성상 100% 정확한 인식은 어렵습니다.</p>
+            <p><strong>Q: 업로드한 이미지가 저장되나요?</strong><br>A: 아니요, 모든 처리는 브라우저 내에서 이루어지며 서버로 전송되거나 저장되지 않습니다.</p>
+            <p><strong>Q: 모바일에서도 사용 가능한가요?</strong><br>A: 네, 스마트폰 브라우저에서도 정상적으로 작동합니다.</p>
+        </section>
 
-        <div class="instructions">
-            <p>가위, 바위, 보 이미지를 업로드하세요.</p>
-            <p>AI가 인식하여 결과를 알려드립니다!</p>
-        </div>
+        <footer>
+            <p>&copy; 2025 ToolBox. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">소개</a>
+                <a href="privacy.html">개인정보처리방침</a>
+                <a href="terms.html">이용약관</a>
+                <a href="contact.html">문의하기</a>
+            </div>
+        </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
@@ -188,7 +277,6 @@
             'paper': '보'
         };
 
-        // 모델 로드
         async function loadModel() {
             const modelURL = URL + "model.json";
             const metadataURL = URL + "metadata.json";
@@ -197,7 +285,6 @@
 
         loadModel();
 
-        // 드래그 앤 드롭
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadArea.classList.add('dragover');
