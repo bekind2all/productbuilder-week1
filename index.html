@@ -385,22 +385,32 @@
             gap: 15px;
         }
         .share-btn {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             text-decoration: none;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            color: #fff; /* 아이콘 색상 */
         }
         .share-btn:hover {
-            transform: scale(1.1);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         .share-btn img {
-            width: 25px;
-            height: 25px;
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
         }
+
+        .share-btn.facebook { background-color: #3b5998; }
+        .share-btn.twitter { background-color: #1da1f2; }
+        .share-btn.kakao { background-color: #fee500; }
+        .share-btn.kakao img { filter: invert(100%); } /* 카카오 로고 색상 반전 */
+        .share-btn.linkedin { background-color: #007bb5; }
+        .share-btn.instagram { background-color: #e4405f; }
 
         @media (max-width: 600px) {
             .header-content {
@@ -447,11 +457,11 @@
             <div class="lotto-numbers" id="lotto-numbers"></div>
             <button class="generate-btn" onclick="generateLotto()">새 번호 뽑기</button>
             <div class="share-buttons">
-                <a href="#" class="share-btn" onclick="shareToFacebook()"><img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Facebook"></a>
-                <a href="#" class="share-btn" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter"></a>
-                <a href="#" class="share-btn" id="kakao-share-btn"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
-                <a href="#" class="share-btn" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
-                <a href="#" class="share-btn" onclick="shareToInstagram()"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a>
+                <a href="#" class="share-btn facebook" onclick="shareToFacebook()"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%25282019%2529.svg" alt="Facebook"></a>
+                <a href="#" class="share-btn twitter" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Twitter-logo.png" alt="Twitter"></a>
+                <a href="#" class="share-btn kakao" id="kakao-share-btn"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
+                <a href="#" class="share-btn linkedin" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
+                <a href="#" class="share-btn instagram" onclick="shareToInstagram()"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a>
             </div>
         </section>
 
@@ -468,16 +478,15 @@
             <input type="file" id="file-input" accept="image/*">
 
             <div class="loading" id="loading">분석 중...</div>
-            <img id="preview-image" alt="업로드된 이미지">
             <div class="result-display" id="result-display"></div>
             <div class="result-text" id="result-text"></div>
             <div id="label-container"></div>
             <div class="share-buttons">
-                <a href="#" class="share-btn" onclick="shareToFacebook()"><img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Facebook"></a>
-                <a href="#" class="share-btn" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter"></a>
-                <a href="#" class="share-btn" id="kakao-share-btn-2"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
-                <a href="#" class="share-btn" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
-                <a href="#" class="share-btn" onclick="shareToInstagram()"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a>
+                <a href="#" class="share-btn facebook" onclick="shareToFacebook()"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%25282019%2529.svg" alt="Facebook"></a>
+                <a href="#" class="share-btn twitter" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Twitter-logo.png" alt="Twitter"></a>
+                <a href="#" class="share-btn kakao" id="kakao-share-btn-2"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
+                <a href="#" class="share-btn linkedin" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
+                <a href="#" class="share-btn instagram" onclick="shareToInstagram()"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a>
             </div>
         </section>
 
@@ -788,7 +797,8 @@
         }
 
         function shareToInstagram() {
-            alert("인스타그램은 현재 앱에서만 공유를 지원합니다. 모바일에서 접속해주세요.");
+            const instagramShareUrl = 'instagram://share'; // This will attempt to open the Instagram app
+            window.open(instagramShareUrl, '_blank');
         }
 
         document.getElementById('kakao-share-btn').addEventListener('click', shareToKakao);
