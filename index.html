@@ -377,6 +377,31 @@
             background-color: #0056b3;
         }
 
+        /* SNS 공유 버튼 */
+        .share-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .share-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        .share-btn:hover {
+            transform: scale(1.1);
+        }
+        .share-btn img {
+            width: 25px;
+            height: 25px;
+        }
+
         @media (max-width: 600px) {
             .header-content {
                 flex-direction: column;
@@ -421,6 +446,24 @@
             <p class="subtitle">행운의 번호를 뽑아보세요!</p>
             <div class="lotto-numbers" id="lotto-numbers"></div>
             <button class="generate-btn" onclick="generateLotto()">새 번호 뽑기</button>
+            <div class="share-buttons">
+                <a href="#" class="share-btn" onclick="shareToFacebook()"><img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Facebook"></a>
+                <a href="#" class="share-btn" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter"></a>
+                <a href="#" class="share-btn" id="kakao-share-btn"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
+                <a href="#" class="share-btn" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
+            </div>
+            <div class="share-buttons">
+                <a href="#" class="share-btn" onclick="shareToFacebook()"><img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Facebook"></a>
+                <a href="#" class="share-btn" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter"></a>
+                <a href="#" class="share-btn" id="kakao-share-btn"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
+                <a href="#" class="share-btn" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
+            </div>
+            <div class="share-buttons">
+                <a href="#" class="share-btn" onclick="shareToFacebook()"><img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Facebook"></a>
+                <a href="#" class="share-btn" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter"></a>
+                <a href="#" class="share-btn" onclick="shareToKakao()"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
+                <a href="#" class="share-btn" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
+            </div>
         </section>
 
         <!-- AI 가위바위보 -->
@@ -440,6 +483,24 @@
             <div class="result-display" id="result-display"></div>
             <div class="result-text" id="result-text"></div>
             <div id="label-container"></div>
+            <div class="share-buttons">
+                <a href="#" class="share-btn" onclick="shareToFacebook()"><img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Facebook"></a>
+                <a href="#" class="share-btn" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter"></a>
+                <a href="#" class="share-btn" id="kakao-share-btn-2"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
+                <a href="#" class="share-btn" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
+            </div>
+            <div class="share-buttons">
+                <a href="#" class="share-btn" onclick="shareToFacebook()"><img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Facebook"></a>
+                <a href="#" class="share-btn" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter"></a>
+                <a href="#" class="share-btn" id="kakao-share-btn-2"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
+                <a href="#" class="share-btn" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
+            </div>
+            <div class="share-buttons">
+                <a href="#" class="share-btn" onclick="shareToFacebook()"><img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Facebook"></a>
+                <a href="#" class="share-btn" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter"></a>
+                <a href="#" class="share-btn" onclick="shareToKakao()"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
+                <a href="#" class="share-btn" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
+            </div>
         </section>
 
         <!-- 로또 설명 -->
@@ -607,7 +668,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script>
+        // Kakao SDK init
+        Kakao.init('YOUR_KAKAO_JAVASCRIPT_KEY');
+
         // 도구 전환
         function showTool(tool) {
             document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
@@ -726,6 +791,47 @@
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', e => { if (e.target === modal) closeModal(modal.id.replace('-modal', '')); });
         });
+
+        // SNS 공유
+        function shareToFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+
+        function shareToTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('재미있는 온라인 도구들을 만나보세요!');
+            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+        }
+
+        function shareToLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}`, '_blank');
+        }
+
+        function shareToKakao() {
+            Kakao.Link.sendDefault({
+                objectType: 'feed',
+                content: {
+                    title: 'ToolBox - 무료 온라인 도구 모음',
+                    description: '재미있고 유용한 웹 도구들을 무료로 이용하세요.',
+                    imageUrl: 'https://bekind2all.github.io/productbuilder-week1/lotto.png',
+                    link: {
+                        mobileWebUrl: window.location.href,
+                        webUrl: window.location.href
+                    }
+                },
+                buttons: [
+                    {
+                        title: '웹으로 보기',
+                        link: {
+                            mobileWebUrl: window.location.href,
+                            webUrl: window.location.href
+                        }
+                    }
+                ]
+            });
+        }
     </script>
 </body>
 </html>
