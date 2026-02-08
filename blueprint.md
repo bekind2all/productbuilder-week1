@@ -1,39 +1,40 @@
-# 프로젝트 청사진: 다크모드 로또 번호 생성기
+# Project Blueprint: ToolBox - Free Online Tools Platform
 
-## 개요
+## Purpose and Capabilities
 
-이 프로젝트는 사용자가 버튼 클릭으로 6개의 무작위 로또 번호를 생성할 수 있는 다크모드 테마의 웹 애플리케이션입니다.
+ToolBox is a web platform offering various free online tools for everyday use. It focuses on user-friendly interfaces and practical functionalities, optimized for all devices (PC, tablet, smartphone) without requiring registration or software installation. All processing is done client-side in the user's browser, ensuring privacy.
 
-## 기능 및 디자인
+## Detailed Outline: Features and Design
 
-### 핵심 기능
+### Initial Version
 
-*   **번호 생성:** "번호 생성" 버튼을 클릭하여 6개의 고유한 무작위 번호를 생성합니다.
-*   **결과 표시:** 생성된 번호를 화면에 표시합니다.
+*   **HTML Structure:** Basic framework with `index.html`, `about.html`, `contact.html`, `lotto.html`, `privacy.html`, `rps.html`, `terms.html`.
+*   **CSS Styling:** `style.css` for a dark theme, responsive design, and modern aesthetics.
+*   **JavaScript Functionality:** `main.js` for dynamic elements and tool logic (e.g., lotto number generation, AI rock-paper-scissors).
+*   **Tools:**
+    *   **Lotto Number Generator:** Generates 6 random numbers between 1 and 45.
+    *   **AI Rock-Paper-Scissors Recognizer:** Utilizes TensorFlow.js and Teachable Machine for image-based recognition of hand gestures.
+*   **Navigation:** Simple navigation bar linking to different pages.
+*   **Modals:** Used for displaying About, Privacy, Terms, and Contact information without navigating away from the main page.
+*   **Contact Form:** Integration with Formspree for handling user inquiries.
 
-### 디자인 및 스타일
+### Current Version (with updates)
 
-*   **테마:** 다크모드 디자인을 적용합니다.
-*   **레이아웃:** 중앙 정렬된 깔끔한 레이아웃을 사용합니다.
-*   **반응형 디자인:** 다양한 화면 크기에서 잘 작동하는 반응형 디자인을 적용합니다.
+#### **SEO Improvements**
 
-## 기술 스택
+*   **Google Analytics (G-G9723WBDRP):** Integrated across all HTML pages for traffic analysis.
+*   **Microsoft Clarity (vdzji5g44k):** Integrated across all HTML pages for user behavior analytics.
+*   **Favicon:** `favicon.ico` linked in all HTML files for branding.
+*   **robots.txt:** Created to guide search engine crawlers. Allows all user-agents to crawl all content.
+*   **sitemap.xml:** Created to help search engines discover and index all relevant pages.
+*   **Open Graph Meta Tags:** Added to all HTML files (`og:title`, `og:description`, `og:image`, `og:url`) for improved social media sharing.
+*   **Twitter Card Meta Tags:** Added to all HTML files (`twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`) for enhanced Twitter sharing.
+*   **Apple Touch Icon:** Added `<link rel="apple-touch-icon" href="lotto.png">` to all HTML files.
 
-*   **HTML:** 애플리케이션의 기본 구조를 정의합니다.
-*   **CSS:** 다크모드 스타일링과 레이아웃을 담당합니다.
-*   **JavaScript:** 로또 번호 생성 로직을 구현합니다.
+#### **Layout Fixes**
 
-## 현재 요청 계획
+*   **CSS Body Styling:** Removed `display: flex`, `justify-content: center`, `align-items: center`, and `height: 100vh` from the `body` element in `style.css` and added `height: auto` to fix content being cut off on larger pages.
 
-1.  **`index.html` 수정:**
-    *   페이지 제목을 "다크모드 로또 번호 생성기"로 설정합니다.
-    *   로또 번호가 표시될 영역과 번호 생성 버튼을 추가합니다.
+## Plan and Steps for Current Requested Change
 
-2.  **`style.css` 수정:**
-    *   다크모드 테마의 배경색, 텍스트 색상 등을 설정합니다.
-    *   번호 표시 영역과 버튼의 스타일을 지정합니다.
-
-3.  **`main.js` 수정:**
-    *   "번호 생성" 버튼에 클릭 이벤트 리스너를 추가합니다.
-    *   1부터 45까지의 숫자 중 6개의 고유한 무작위 번호를 생성하는 로직을 구현합니다.
-    *   생성된 번호를 화면에 업데이트하는 함수를 만듭니다.
+N/A - All requested changes have been implemented and deployed.
