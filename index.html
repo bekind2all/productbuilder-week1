@@ -451,18 +451,7 @@
                 <a href="#" class="share-btn" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter"></a>
                 <a href="#" class="share-btn" id="kakao-share-btn"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
                 <a href="#" class="share-btn" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
-            </div>
-            <div class="share-buttons">
-                <a href="#" class="share-btn" onclick="shareToFacebook()"><img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Facebook"></a>
-                <a href="#" class="share-btn" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter"></a>
-                <a href="#" class="share-btn" id="kakao-share-btn"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
-                <a href="#" class="share-btn" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
-            </div>
-            <div class="share-buttons">
-                <a href="#" class="share-btn" onclick="shareToFacebook()"><img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Facebook"></a>
-                <a href="#" class="share-btn" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter"></a>
-                <a href="#" class="share-btn" onclick="shareToKakao()"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
-                <a href="#" class="share-btn" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
+                <a href="#" class="share-btn" onclick="shareToInstagram()"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a>
             </div>
         </section>
 
@@ -488,18 +477,7 @@
                 <a href="#" class="share-btn" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter"></a>
                 <a href="#" class="share-btn" id="kakao-share-btn-2"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
                 <a href="#" class="share-btn" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
-            </div>
-            <div class="share-buttons">
-                <a href="#" class="share-btn" onclick="shareToFacebook()"><img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Facebook"></a>
-                <a href="#" class="share-btn" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter"></a>
-                <a href="#" class="share-btn" id="kakao-share-btn-2"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
-                <a href="#" class="share-btn" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
-            </div>
-            <div class="share-buttons">
-                <a href="#" class="share-btn" onclick="shareToFacebook()"><img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Facebook"></a>
-                <a href="#" class="share-btn" onclick="shareToTwitter()"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter"></a>
-                <a href="#" class="share-btn" onclick="shareToKakao()"><img src="https://developers.kakao.com/assets/img/about/logos/kakaotalk/kakaotalk_symbol_black.png" alt="KakaoTalk"></a>
-                <a href="#" class="share-btn" onclick="shareToLinkedIn()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></a>
+                <a href="#" class="share-btn" onclick="shareToInstagram()"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a>
             </div>
         </section>
 
@@ -809,6 +787,13 @@
             window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}`, '_blank');
         }
 
+        function shareToInstagram() {
+            alert("인스타그램은 현재 앱에서만 공유를 지원합니다. 모바일에서 접속해주세요.");
+        }
+
+        document.getElementById('kakao-share-btn').addEventListener('click', shareToKakao);
+        document.getElementById('kakao-share-btn-2').addEventListener('click', shareToKakao);
+
         function shareToKakao() {
             Kakao.Link.sendDefault({
                 objectType: 'feed',
@@ -834,4 +819,3 @@
         }
     </script>
 </body>
-</html>
